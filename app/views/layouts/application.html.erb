@@ -36,6 +36,9 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav navbar-right">
 	        <% if user_signed_in? %>
+						<% if current_user.admin? %>
+							<li><a href="<%= dashboard_pages_path %>">Dashboard</a></li>
+						<% end %>
 	        	<li><a href="#">Hola <%= current_user.name %>!</a></li>
 	        	<li><%= link_to 'Cerrar sesión', destroy_user_session_path, method: :delete %></li>
 	        <% else %>

@@ -13,7 +13,8 @@ User.destroy_all
   u = User.create!(
     name: "User#{i}", 
     email: "email#{i}@gmail.com",
-    password: "123456"
+    password: "123456",
+    role: 1
   )
   p = Post.create!(
     title: "Post#{i}",

@@ -1,0 +1,43 @@
+<div id="info"></div>
+<h1>Users</h1>
+
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>email</th>
+      <th>Comments</th>
+      <th>Role</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.comments.count %></td>
+        <td>
+          <%= form_for @user, url: page_path(user), method: :put do |f|  %>
+            <%= f.select :role, User.roles.keys, :selected => user.role %>
+          <% end %>
+        </td>
+        <td><%= link_to 'Eliminar', page_path(user), method: :delete, data: { confirm: 'Estás seguro que deseas eliminar el Usuario?' }, class: 'btn btn-sm btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<script>
+  $(".new_user").change(function(){
+    $.ajax({
+      type: "PUT",
+      dataType: "json",
+      url: $(this).attr("action"),
+      data: $(this).serialize()
+    })
+    .done(function(data){
+      $("#info").html("Role for user " + data.name + " changed to " + data.role + "!");
+    });
+  });
+</script>
